@@ -9,7 +9,7 @@ import colors from './src/consts/colors';
 const App = () => {
   return(
     <NavigationContainer>
-      <StatusBar barStyle = "dark-content" backgroundColor = {colors.light}/>
+      <StatusBar barStyle = "dark-content" backgroundColor = {colors.white}/>
       <Stack.Navigator screenOptions = {{header: () => null}}>
         <Stack.Screen name= "Home" component={Home} />
         <Stack.Screen name= "Detail" component={Detail} />

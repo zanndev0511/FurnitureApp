@@ -1,4 +1,4 @@
-const funitures = [
+const furnitures = [
   {
     id: 1,
     name: "Succulent Plant",
