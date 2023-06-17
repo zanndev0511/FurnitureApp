@@ -17,7 +17,7 @@ import { Dimensions } from "react-native";
 
 const width = Dimensions.get("screen").width / 2 - 30;
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const categories = ["POPULAR", "PRODUCT", "COLLECTION", "INSPIRATION CORNER"];
   const [categoryIndex, setCategoryIndex] = React.useState(0);
 
@@ -46,64 +46,67 @@ const Home = () => {
 
   const Card = ({ furniture }) => {
     return (
-      <View style={style.card}>
-        <View style={{ alignItems: "flex-end" }}>
-          <View
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 15,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: furniture.like
-                ? "rgba(245, 42, 42, 0.2)"
-                : "rgba(0,0,0,0.2)",
-            }}>
-            <Icon
-              name="cards-heart"
-              size={18}
-              color={furniture.like ? colors.red : colors.dark}
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Detail", furniture)}>
+        <View style={style.card}>
+          <View style={{ alignItems: "flex-end" }}>
+            <View
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 15,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: furniture.like
+                  ? "rgba(245, 42, 42, 0.2)"
+                  : "rgba(0,0,0,0.2)",
+              }}>
+              <Icon
+                name="cards-heart"
+                size={18}
+                color={furniture.like ? colors.red : colors.dark}
+              />
+            </View>
+          </View>
+          <View style={{ height: 100, alignItems: "center" }}>
+            <Image
+              style={{ flex: 1, resizeMode: "contain" }}
+              source={furniture.img}
             />
           </View>
-        </View>
-        <View style={{ height: 100, alignItems: "center" }}>
-          <Image
-            style={{ flex: 1, resizeMode: "contain" }}
-            source={furniture.img}
-          />
-        </View>
-        <Text style={{ fontWeight: "bold", fontSize: 17, marginTop: 10 }}>
-          {furniture.name}
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 5,
-          }}>
-          <Text style={{ fontSize: 19, fontWeight: "bold" }}>
-            ${furniture.price}
+          <Text style={{ fontWeight: "bold", fontSize: 17, marginTop: 10 }}>
+            {furniture.name}
           </Text>
           <View
             style={{
-              height: 25,
-              width: 25,
-              backgroundColor: colors.green,
-              borderRadius: 5,
-              justifyContent: "center",
-              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: 5,
             }}>
-            <Text
-              style={{
-                fontSize: 19,
-                color: colors.white,
-                fontWeight: "bold",
-              }}>
-              +
+            <Text style={{ fontSize: 19, fontWeight: "bold" }}>
+              ${furniture.price}
             </Text>
+            <View
+              style={{
+                height: 25,
+                width: 25,
+                backgroundColor: colors.green,
+                borderRadius: 5,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Text
+                style={{
+                  fontSize: 19,
+                  color: colors.white,
+                  fontWeight: "bold",
+                }}>
+                +
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
