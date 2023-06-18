@@ -15,6 +15,7 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import furnitures from "../consts/funitures";
 import { Dimensions } from "react-native";
 
+
 const width = Dimensions.get("screen").width / 2 - 30;
 
 const Home = ({ navigation }) => {

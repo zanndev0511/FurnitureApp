@@ -2,6 +2,10 @@ import React from 'react';
 import { View, SafeAreaView, Image, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../consts/colors';
+import Swiper from 'react-native-swiper';
+import { Dimensions } from 'react-native';
+
+const width = Dimensions.get('screen').width;
 
 const Detail = ({ navigation, route }) => {
   const furniture = route.params;
@@ -12,10 +16,17 @@ const Detail = ({ navigation, route }) => {
         <Icon name="cart" size={28} />
       </View>
       <View style={style.imageContainer}>
-        <Image
-          source={furniture.img}
-          style={{ resizeMode: 'contain', flex: 1 }}
-        />
+        <Swiper
+          nextButton={<Text style={style.buttonText}>›</Text>}
+          prevButton={<Text style={style.buttonText}>‹</Text>}
+          activeDotColor={colors.green}
+          showsButtons={true}
+          autoplay={true}
+          autoplayTimeout={3}>
+          <Image source={furniture.img} style={style.image} />
+          <Image source={furniture.img} style={style.image} />
+          <Image source={furniture.img} style={style.image} />
+        </Swiper>
       </View>
       <View style={style.detailContainer}>
         <View
@@ -153,5 +164,14 @@ const style = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
   },
+  wrapper: {},
+  image: {
+    width,
+    flex: 1,
+  },
+  buttonText:{
+    color: colors.green,
+    fontSize: 50
+  }
 });
 export default Detail;
