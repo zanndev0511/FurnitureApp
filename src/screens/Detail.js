@@ -10,7 +10,7 @@ const width = Dimensions.get('screen').width;
 const Detail = ({ navigation, route }) => {
   const furniture = route.params;
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={style.header}>
         <Icon name="arrow-left" size={28} onPress={() => navigation.goBack()} />
         <Icon name="cart" size={28} />
@@ -110,7 +110,7 @@ const Detail = ({ navigation, route }) => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 const style = StyleSheet.create({
