@@ -8,14 +8,35 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import colors from '../consts/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Dimensions } from 'react-native';
+import CustomTextInput from '../common/CustomTextInput';
+import CommonButton from '../common/CommonButton';
+import { useNavigation } from '@react-navigation/native';
 
-const width = Dimensions.get('screen').width - 80 ;
+const width = Dimensions.get('screen').width - 80;
 
 const Login = () => {
+  const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [badUsername, setBadUsername] = useState(false);
+  const [badPassword, setBadPassword] = useState(false);
+  const validate = () => {
+    if (username == '') {
+      setBadUsername(true);
+    } else {
+      setBadUsername(false)
+    }
+    if (password == '') {
+      setBadPassword(true);
+    }else{
+      setBadPassword(false)
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -46,26 +67,64 @@ const Login = () => {
             }}>
             Login
           </Text>
-          <Text
-            style={{
-              color: colors.red,
-              marginTop: 5,
-              fontWeight: 'bold',
-              fontSize: 15,
-            }}>
-            Sign in to continue.
-          </Text>
-          <TextInput style={styles.input_user} placeholder="Username" />
-          <TextInput
-            style={styles.input_password}
-            placeholder="Password"
-            secureTextEntry={true}
+          {/* validate login */}
+          {badUsername === true && (
+            <Text
+              style={{
+                marginTop: 10,
+                alignItems: 'center',
+                color: colors.red,
+                fontWeight: 'bold',
+                fontSize: 16,
+              }}>
+              Please enter your username
+            </Text>
+          )}
+          {badPassword === true && (
+            <Text
+              style={{
+                marginTop: 10,
+                alignItems: 'center',
+                color: colors.red,
+                fontWeight: 'bold',
+                fontSize: 16,
+              }}>
+              Please enter your password
+            </Text>
+          )}
+          <CustomTextInput
+            placeHolder={'Username'}
+            icon={'account'}
+            onChangeText={setUsername
+            }
+            value={username}
           />
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Log in</Text>
+          <CustomTextInput
+            placeHolder={'Password'}
+            icon={'lock'}
+            type={'password'}
+            onChangeText={setPassword}
+            value={password}
+          />
+          <CommonButton
+            title={'Login'}
+            bgColor={colors.green}
+            textColor={colors.white}
+            onPress={() => {
+              validate();
+            }}
+          />
+          <Text style={{ color: colors.white, marginTop: 30, fontSize: 16 }}>
+            Forgot Password?
+          </Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Register');
+            }}>
+            <Text style={{ color: colors.white, marginTop: 15, fontSize: 16 }}>
+              Create New Account?
+            </Text>
           </TouchableOpacity>
-          <Text style={{color: colors.white, marginTop: 30}}>Forgot Password?</Text>
-          <Text style={{color: colors.white, marginTop: 10}}>Signup !</Text>
         </View>
       </ImageBackground>
     </View>
@@ -81,59 +140,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     alignItems: 'center',
-  },
-  line: {
-    position: 'absolute',
-    backgroundColor: colors.green,
-    width: '8%',
-    height: '100%',
-    transform: [{ rotateZ: '65deg' }],
-    zIndex: 1,
-    top: -200,
-    opacity: 0.8,
-  },
-  background_login: {
-    backgroundColor: colors.dark,
-    width: '100%',
-    height: '100%',
-    transform: [{ rotateZ: '65deg' }],
-    top: 80,
-    zIndex: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    opacity: 0.8,
-  },
-  input_user: {
-    backgroundColor: colors.white,
-    marginTop: 30,
-    fontSize: 15,
-    width,
-    height: 45,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-  },
-  input_password: {
-    backgroundColor: colors.white,
-    marginTop: 20,
-    fontSize: 15,
-    width,
-    height: 45,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-  },
-  button: {
-    backgroundColor: colors.green,
-    height: 50,
-    width,
-    borderRadius: 10,
-    marginTop: 25,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  buttonText: {
-    color: colors.white,
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 });
 

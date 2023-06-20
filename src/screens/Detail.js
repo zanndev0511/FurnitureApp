@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../consts/colors';
 import Swiper from 'react-native-swiper';
