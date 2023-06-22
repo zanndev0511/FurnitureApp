@@ -5,9 +5,10 @@ import { Dimensions } from 'react-native';
 
 const width = Dimensions.get('screen').width - 80;
 
-const CommonButton = ({ onPress, title, bgColor, textColor }) => {
+const CommonButton = ({ onPress, title, bgColor, textColor, disabled }) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={{
         backgroundColor: bgColor,
         justifyContent: 'center',
@@ -15,8 +16,8 @@ const CommonButton = ({ onPress, title, bgColor, textColor }) => {
         width,
         height: 50,
         marginTop: 50,
-        alignSelf:'center',
-        borderRadius: 10
+        alignSelf: 'center',
+        borderRadius: 10,
       }}
       onPress={() => {
         onPress();

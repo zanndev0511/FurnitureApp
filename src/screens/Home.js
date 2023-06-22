@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import furnitures from "../consts/funitures";
 import { Dimensions } from "react-native";
+import Loader from "../common/Loader";
 
 
 const width = Dimensions.get("screen").width / 2 - 30;
@@ -21,10 +22,11 @@ const width = Dimensions.get("screen").width / 2 - 30;
 const Home = ({ navigation }) => {
   const categories = ["POPULAR", "PRODUCT", "COLLECTION", "INSPIRATION CORNER"];
   const [categoryIndex, setCategoryIndex] = React.useState(0);
+  
 
   const CategoryList = () => {
     return (
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={style.categoryContainer}>
           {categories.map((item, index) => (
             <TouchableOpacity
@@ -42,6 +44,7 @@ const Home = ({ navigation }) => {
           ))}
         </View>
       </ScrollView>
+      
     );
   };
 

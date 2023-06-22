@@ -27,7 +27,7 @@ const CustomTextInput = ({ value, onChangeText, placeHolder, icon, type, keyboar
         value={value}
         placeholder={placeHolder}
         style={{ marginLeft: 10 }}
-        keyboardType={keyboardType? keyboardType: ''}
+        keyboardType={keyboardType ? keyboardType : 'default'}
         secureTextEntry={type ? true : false}
       />
     </View>
