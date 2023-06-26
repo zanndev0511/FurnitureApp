@@ -195,9 +195,11 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   categoryContainer: {
+    position: 'relative',
+    height: 30,
     flexDirection: "row",
-    marginTop: 30,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 30,
     justifyContent: "space-between",
   },
   categoryText: {
