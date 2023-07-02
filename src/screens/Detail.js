@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../consts/colors';
 import Swiper from 'react-native-swiper';
 import { Dimensions } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const width = Dimensions.get('screen').width;
 
 const Detail = ({ navigation, route }) => {
   const furniture = route.params;
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={{ flex: 1, backgroundColor: colors.white, marginBottom: 50 }}>
       <View style={style.header}>
         <Icon name="arrow-left" size={28} onPress={() => navigation.goBack()} />
         <Icon name="cart" size={28} />
@@ -63,7 +64,7 @@ const Detail = ({ navigation, route }) => {
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+        <ScrollView style={{ paddingHorizontal: 20, marginTop: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
           <Text
             style={{
@@ -74,28 +75,44 @@ const Detail = ({ navigation, route }) => {
             }}>
             {furniture.about}
           </Text>
-
+        </ScrollView>
+        <View
+          style={{
+            marginVertical: 20,
+            marginHorizontal: 20,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={style.borderBtn}>
+              <Text style={style.borderBtnText}>-</Text>
+            </View>
+            <Text
+              style={{
+                fontSize: 20,
+                marginHorizontal: 10,
+                fontWeight: 'bold',
+              }}>
+              1
+            </Text>
+            <View style={style.borderBtn}>
+              <Text style={style.borderBtnText}>+</Text>
+            </View>
+          </View>
           <View
             style={{
-              marginTop: 20,
               flexDirection: 'row',
-              justifyContent: 'space-between',
+              justifyContent: 'flex-end',
             }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={style.borderBtn}>
-                <Text style={style.borderBtnText}>-</Text>
-              </View>
+            <View style={style.cartBtn}>
               <Text
                 style={{
-                  fontSize: 20,
-                  marginHorizontal: 10,
+                  color: colors.white,
+                  fontSize: 18,
                   fontWeight: 'bold',
                 }}>
-                1
+                <Icon name="cart-plus" size={28}></Icon>
               </Text>
-              <View style={style.borderBtn}>
-                <Text style={style.borderBtnText}>+</Text>
-              </View>
             </View>
             <View style={style.buyBtn}>
               <Text
@@ -157,8 +174,17 @@ const style = StyleSheet.create({
     fontSize: 28,
   },
   buyBtn: {
-    width: 150,
+    width: 120,
     height: 50,
+    backgroundColor: colors.green,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  cartBtn: {
+    width: 80,
+    height: 50,
+    marginHorizontal: 5,
     backgroundColor: colors.green,
     justifyContent: 'center',
     alignItems: 'center',
@@ -169,9 +195,9 @@ const style = StyleSheet.create({
     width,
     flex: 1,
   },
-  buttonText:{
+  buttonText: {
     color: colors.green,
-    fontSize: 50
-  }
+    fontSize: 50,
+  },
 });
 export default Detail;
