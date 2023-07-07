@@ -11,7 +11,7 @@ const width = Dimensions.get('screen').width;
 const Detail = ({ navigation, route }) => {
   const furniture = route.params;
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white, marginBottom: 50 }}>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={style.header}>
         <Icon name="arrow-left" size={28} onPress={() => navigation.goBack()} />
         <Icon name="cart" size={28} />
@@ -65,7 +65,6 @@ const Detail = ({ navigation, route }) => {
         </View>
 
         <ScrollView style={{ paddingHorizontal: 20, marginTop: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>About</Text>
           <Text
             style={{
               color: 'gray',
@@ -78,7 +77,7 @@ const Detail = ({ navigation, route }) => {
         </ScrollView>
         <View
           style={{
-            marginVertical: 20,
+            marginVertical: 5,
             marginHorizontal: 20,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -139,7 +138,7 @@ const style = StyleSheet.create({
   },
   imageContainer: {
     flex: 0.45,
-    marginTop: 20,
+    marginTop: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },

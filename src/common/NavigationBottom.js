@@ -32,7 +32,7 @@ const NavigationBottom = () => {
         tabBarStyle: {
           backgroundColor: colors.white,
           borderTopColor: colors.white,
-          bottom: 35,
+          bottom: 7,
           marginHorizontal: 20,
           height: 60,
           borderRadius: 10,
@@ -70,6 +70,7 @@ const NavigationBottom = () => {
       <Tab.Screen
         name="Detail"
         options={{
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
@@ -106,6 +107,7 @@ const NavigationBottom = () => {
       <Tab.Screen
         name="Cart"
         options={{
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
