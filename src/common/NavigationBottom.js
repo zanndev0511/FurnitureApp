@@ -1,17 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React, { useRef } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../consts/colors';
-import Home from '../screens/Home';
-import Detail from '../screens/Detail';
-import Register from '../screens/Register';
-import Animated from 'react-native-reanimated';
-import { Dimensions } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { View, Text, StyleSheet } from "react-native";
+import React, { useRef } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import colors from "../consts/colors";
+import Home from "../screens/Home";
+import Detail from "../screens/Detail";
+import Register from "../screens/Register";
+import Cart from "../screens/Cart";
+import Animated from "react-native-reanimated";
+import { Dimensions } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
 
 const getWidth = () => {
-  let width = Dimensions.get('screen').width;
+  let width = Dimensions.get("screen").width;
   //horizontal padding = 20
   width = width - 40;
 
@@ -20,7 +22,8 @@ const getWidth = () => {
 
 const NavigationBottom = () => {
   const Tab = createBottomTabNavigator();
-
+  const data = useSelector((state) => state);
+  // console.log(data);
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,7 +36,7 @@ const NavigationBottom = () => {
           marginHorizontal: 20,
           height: 60,
           borderRadius: 10,
-          shadowColor: '#000',
+          shadowColor: "#000",
           shadowOpacity: 0.06,
           shadowOffset: {
             width: 10,
@@ -43,15 +46,17 @@ const NavigationBottom = () => {
         tabBarActiveTintColor: colors.green,
         tabBarInactiveTintColor: colors.dark,
         tabBarShowLabel: false,
-      }}>
+      }}
+    >
       <Tab.Screen
         name="Home"
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                position: 'absolute',
-              }}>
+                position: "absolute",
+              }}
+            >
               <Icon
                 name="home"
                 color={focused ? colors.green : colors.dark}
@@ -68,20 +73,38 @@ const NavigationBottom = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                position: 'absolute',
-              }}>
+                position: "absolute",
+              }}
+            >
               <Icon
                 name="cards-heart"
                 color={focused ? colors.green : colors.dark}
                 size={28}
               />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: colors.red,
+                  borderRadius: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  top: -3,
+                  right: -5,
+                }}
+              >
+                <Text style={{ color: colors.white, fontWeight: "bold" }}>
+                  {data.reducers2.length}
+                </Text>
+              </View>
             </View>
           ),
         }}
         component={Detail}
       />
       <Tab.Screen
-        name="Detail1"
+        name="Cart"
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -90,15 +113,33 @@ const NavigationBottom = () => {
                 height: 70,
                 backgroundColor: colors.green,
                 borderRadius: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
                 marginBottom: 50,
-              }}>
+              }}
+            >
               <Icon name="shopping-outline" color={colors.white} size={30} />
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: colors.red,
+                  borderRadius: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  top: 13,
+                  right: 13,
+                }}
+              >
+                <Text style={{ color: colors.white, fontWeight: "bold" }}>
+                {data.reducers.length}
+                </Text>
+              </View>
             </View>
           ),
         }}
-        component={Register}
+        component={Cart}
       />
       <Tab.Screen
         name="Detail2"
@@ -106,8 +147,9 @@ const NavigationBottom = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                position: 'absolute',
-              }}>
+                position: "absolute",
+              }}
+            >
               <Icon
                 name="bell"
                 color={focused ? colors.green : colors.dark}
@@ -124,8 +166,9 @@ const NavigationBottom = () => {
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                position: 'absolute',
-              }}>
+                position: "absolute",
+              }}
+            >
               <Icon
                 name="account"
                 color={focused ? colors.green : colors.dark}
