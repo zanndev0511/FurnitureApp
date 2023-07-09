@@ -11,79 +11,103 @@ import reducers from '../redux/reducers/Reducers';
 import colors from '../consts/colors';
 import { useSelector } from 'react-redux';
 import { Dimensions } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useNavigation } from '@react-navigation/native';
+import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
+import Animated, { event, useAnimatedGestureHandler, useSharedValue } from 'react-native-reanimated';
 const width = Dimensions.get('screen').width / 2 - 30;
 
 const CartItem = ({ cartItem }) => {
+  const leftSwipe = () => {
+    return(
+      <TouchableOpacity style = {style.deleteBox}>
+        <Icon name='trash-can-outline' color={colors.white} size={30}/>
+      </TouchableOpacity>
+    )
+  }
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Detail', cartItem)}>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          backgroundColor: colors.white,
-          marginVertical: 5,
-          marginHorizontal: 20,
-          borderRadius: 10,
-        }}
-      >
-        <View style={{ flex: 1, alignItems: 'flex-start' }}>
-          <Image
-            style={{
-              height: 100,
-              width: 100,
-              resizeMode: 'contain',
-              marginHorizontal: 15,
-              marginVertical: 15,
-            }}
-            source={cartItem.img}
-          />
-        </View>
-        <View style={{ flex: 1, position: 'absolute', marginLeft: 130 }}>
-          <Text
-            style={{ flex: 1, fontWeight: 'bold', fontSize: 20, marginTop: 15 }}
-          >
-            {cartItem.name}
-          </Text>
-          <Text
-            style={{
-              flex: 1,
-              fontWeight: 'bold',
-              fontSize: 18,
-              marginTop: 5,
-              color: colors.red,
-            }}
-          >
-            ${cartItem.price}
-          </Text><View style={{ flexDirection: 'row', marginTop: 5}}>
-          <View style={style.borderBtn}>
-            <Text style={style.borderBtnText}>-</Text>
+    <GestureHandlerRootView><Swipeable renderLeftActions = {leftSwipe}>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            backgroundColor: colors.white,
+            marginVertical: 5,
+            marginHorizontal: 20,
+            borderRadius: 10,
+          }}
+        >
+          <View style={{ flex: 1, alignItems: 'flex-start' }}>
+            <Image
+              style={{
+                height: 100,
+                width: 100,
+                resizeMode: 'contain',
+                marginHorizontal: 15,
+                marginVertical: 15,
+              }}
+              source={cartItem.img}
+            />
           </View>
-          <Text
-            style={{
-              fontSize: 20,
-              marginHorizontal: 10,
-              fontWeight: 'bold',
-            }}
-          >
-            1
-          </Text>
-          <View style={style.borderBtn}>
-            <Text style={style.borderBtnText}>+</Text>
+          <View style={{ flex: 1, position: 'absolute', marginLeft: 130 }}>
+            <Text
+              style={{
+                flex: 1,
+                fontWeight: 'bold',
+                fontSize: 20,
+                marginTop: 15,
+              }}
+            >
+              {cartItem.name}
+            </Text>
+            <Text
+              style={{
+                flex: 1,
+                fontWeight: 'bold',
+                fontSize: 18,
+                marginTop: 5,
+                color: colors.red,
+              }}
+            >
+              ${cartItem.price}
+            </Text>
+            <View style={{ flexDirection: 'row', marginTop: 5 }}>
+              <View style={style.borderBtn}>
+                <Text style={style.borderBtnText}>-</Text>
+              </View>
+              <Text
+                style={{
+                  fontSize: 20,
+                  marginHorizontal: 10,
+                  fontWeight: 'bold',
+                }}
+              >
+                1
+              </Text>
+              <View style={style.borderBtn}>
+                <Text style={style.borderBtnText}>+</Text>
+              </View>
+            </View>
           </View>
         </View>
-        </View>
-        
-      </View>
-    </TouchableOpacity>
+    </Swipeable></GestureHandlerRootView>
+    
   );
 };
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
   const cartData = useSelector((state) => state.reducers);
 
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1, marginVertical: 15 }}>
+      <View style={style.header}>
+        <Icon
+          name="arrow-left"
+          size={28}
+          onPress={() => navigation.navigate('Home')}
+        />
+      </View>
       <FlatList
         data={cartData}
         renderItem={({ item, index }) => {
@@ -167,5 +191,20 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  header: {
+    paddingHorizontal: 20,
+    marginTop: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  deleteBox:{
+    backgroundColor: colors.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 100,
+    marginVertical: 5,
+    marginLeft: 20,
+    borderRadius: 10,
+  }
 });
 export default Cart;
