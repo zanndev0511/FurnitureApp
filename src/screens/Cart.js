@@ -9,24 +9,38 @@ import {
 import React, { useState } from 'react';
 import reducers from '../redux/reducers/Reducers';
 import colors from '../consts/colors';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
-import Animated, { event, useAnimatedGestureHandler, useSharedValue } from 'react-native-reanimated';
+import {
+  GestureHandlerRootView,
+  Swipeable,
+} from 'react-native-gesture-handler';
+import Animated, {
+  event,
+  useAnimatedGestureHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { removeFromCart } from '../redux/actions/Actions';
 const width = Dimensions.get('screen').width / 2 - 30;
 
-const CartItem = ({ cartItem }) => {
+const CartItem = ({ cartItem, onRemoveItem }) => {
   const leftSwipe = () => {
-    return(
-      <TouchableOpacity style = {style.deleteBox}>
-        <Icon name='trash-can-outline' color={colors.white} size={30}/>
+    return (
+      <TouchableOpacity
+        style={style.deleteBox}
+        onPress={() => {
+          onRemoveItem();
+        }}
+      >
+        <Icon name="trash-can-outline" color={colors.white} size={30} />
       </TouchableOpacity>
-    )
-  }
+    );
+  };
   return (
-    <GestureHandlerRootView><Swipeable renderLeftActions = {leftSwipe}>
+    <GestureHandlerRootView>
+      <Swipeable renderLeftActions={leftSwipe}>
         <View
           style={{
             flex: 1,
@@ -90,8 +104,8 @@ const CartItem = ({ cartItem }) => {
             </View>
           </View>
         </View>
-    </Swipeable></GestureHandlerRootView>
-    
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 };
 const Cart = () => {
@@ -99,6 +113,8 @@ const Cart = () => {
   const cartData = useSelector((state) => state.reducers);
 
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
   return (
     <View style={{ flex: 1, marginVertical: 15 }}>
       <View style={style.header}>
@@ -111,7 +127,14 @@ const Cart = () => {
       <FlatList
         data={cartData}
         renderItem={({ item, index }) => {
-          return <CartItem cartItem={item} />;
+          return (
+            <CartItem
+              cartItem={item}
+              onRemoveItem={() => {
+                dispatch(removeFromCart(index));
+              }}
+            />
+          );
         }}
       />
     </View>
@@ -197,7 +220,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  deleteBox:{
+  deleteBox: {
     backgroundColor: colors.red,
     justifyContent: 'center',
     alignItems: 'center',
@@ -205,6 +228,6 @@ const style = StyleSheet.create({
     marginVertical: 5,
     marginLeft: 20,
     borderRadius: 10,
-  }
+  },
 });
 export default Cart;

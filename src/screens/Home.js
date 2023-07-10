@@ -228,7 +228,7 @@ const style = StyleSheet.create({
   },
   categoryContainer: {
     position: "relative",
-    height: 30,
+    height: 50,
     flexDirection: "row",
     marginTop: 20,
     marginBottom: 30,
@@ -256,7 +256,7 @@ const style = StyleSheet.create({
     padding: 15,
   },
   flatlist: {
-    height: "67%",
+    height: "60%",
   },
 });
 
