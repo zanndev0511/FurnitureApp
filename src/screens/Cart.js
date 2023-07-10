@@ -25,7 +25,7 @@ import Animated, {
 import { removeFromCart } from '../redux/actions/Actions';
 const width = Dimensions.get('screen').width / 2 - 30;
 
-const CartItem = ({ cartItem, onRemoveItem }) => {
+const CartItem = ({ cartItem, onRemoveItem, isWishList }) => {
   const leftSwipe = () => {
     return (
       <TouchableOpacity
@@ -111,6 +111,7 @@ const CartItem = ({ cartItem, onRemoveItem }) => {
 const Cart = () => {
   const [cartList, setCartList] = useState([]);
   const cartData = useSelector((state) => state.reducers);
+  console.log(cartData)
 
   const navigation = useNavigation();
 

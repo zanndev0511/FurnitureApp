@@ -11,6 +11,12 @@ import Animated from "react-native-reanimated";
 import { Dimensions } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
+import WishList from "../screens/WishList";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const getWidth = () => {
   let width = Dimensions.get("screen").width;
@@ -71,10 +77,19 @@ const NavigationBottom = () => {
         name="Detail"
         options={{
           tabBarStyle: { display: 'none' },
+          tabBarItemStyle: { display: "none" }
+        }}
+        component={Detail}
+      />
+      <Tab.Screen
+        name="WishList"
+        options={{
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ focused }) => (
             <View
               style={{
                 position: "absolute",
+                marginBottom: 40
               }}
             >
               <Icon
@@ -102,7 +117,7 @@ const NavigationBottom = () => {
             </View>
           ),
         }}
-        component={Detail}
+        component={WishList}
       />
       <Tab.Screen
         name="Cart"
@@ -184,5 +199,14 @@ const NavigationBottom = () => {
     </Tab.Navigator>
   );
 };
+function StackScreens() {
+  return (
+    <Stack.Navigator screenOptions={{ header: () => null }}>
+        <Stack.Screen name="Detail" component={Detail} />
+      </Stack.Navigator>
+      
+    
+  );
+}
 
 export default NavigationBottom;
